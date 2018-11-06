@@ -14,4 +14,4 @@ RUN apk update && apk add openjdk8
 COPY --from=veraBase /opt/veraPDF/veraPDF-rest/target .
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "verapdf-rest-0.1.0-SNAPSHOT.jar"]
-CMD ["server"]
+CMD ["help"]
