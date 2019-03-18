@@ -1,7 +1,7 @@
 from alpine:latest as veraBase
 WORKDIR /opt/veraPDF
 RUN apk update && apk add openjdk8 
-RUN apk add git maven
+RUN apk add git maven nss
 ENV BUILD_DATE 20190318
 RUN git clone git://github.com/~git/veraPDF/veraPDF-rest.git
 WORKDIR /opt/veraPDF/veraPDF-rest
