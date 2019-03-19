@@ -5,6 +5,7 @@ RUN apk update && apk add \
 	python3 \
 	&& python3 -m ensurepip \
 	&& pip3 install greg stagger
+ENV BUILD_DATE 20190318
 COPY greg.conf /tmp/
 COPY greg.sh /tmp/
 COPY greg_extract.awk /tmp/
