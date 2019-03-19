@@ -8,4 +8,4 @@ RUN /bin/find /  -mount -user mysql -exec chown ${USER_ID} {} \; \
 	&& /bin/find /  -mount -group mysql -exec chgrp ${GROUP_ID} {} \; \
 	&& usermod -u ${USER_ID}  mysql \
 	&& groupmod -g ${GROUP_ID} mysql
-USER mysql
+#USER mysql
