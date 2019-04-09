@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------------
 # greg_process.sh
-# 
+# 	
 #-----
 
 
@@ -17,19 +17,25 @@ function remove_series {
 	echo y|greg remove $1
 	}
 
-function run_all {
+function dump_current_state {
 	#--> Dump the current state of greg; one line per series 
-	# Space seperated file with series, url and Next sync date
-	greg info|awk -f /tmp/greg_extract.awk >/tmp/greg.state
+	# Space separated file with series, url and Next sync date
+	greg info|awk -f /tmp/greg_extract.awk |sort >/tmp/greg.state
+}
+function run_all {
+	
+	dump_current_state	# Into /tmp/greg.state
 	
 	#--> See if there are any new series to add or remove
 	BACKUP_NEEDED=0
 	if [ -f /output/greg.state ] ; then
+		#--> This will produce a list of NEW series
 		for series in $( comm -13 <(cut -d " " -f1 /tmp/greg.state|sort) <(cut -d " " -f1 /output/greg.state|sort))
 		do
 			BACKUP_NEEDED=1
 			add_series $(grep "^$series " /output/greg.state)
 		done
+		#--> Produce a list old series to be removed
 		for series in $( comm -23 <(cut -d " " -f1 /tmp/greg.state|sort) <(cut -d " " -f1 /output/greg.state|sort))
 		do
 			BACKUP_NEEDED=1
@@ -48,7 +54,7 @@ function run_all {
 	do
 		greg sync $series 
 	done
-	greg info|awk -f /tmp/greg_extract.awk |sort >/tmp/greg.state
+	dump_current_state	# Into /tmp/greg.state
 	diff /tmp/greg.state /output/greg.state >/dev/null 2>&1 ||\
 		mv /tmp/greg.state /output/greg.state
 }
