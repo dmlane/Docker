@@ -8,6 +8,7 @@ RUN apk update && apk add \
 ENV BUILD_DATE 20190318
 COPY greg.conf /tmp/
 COPY greg.sh /tmp/
+COPY wget.sh /tmp/
 COPY greg_extract.awk /tmp/
 COPY greg_process.sh /tmp/
 RUN mv /tmp/greg.conf $(find /usr/lib -name greg.conf)
