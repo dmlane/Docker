@@ -3,9 +3,9 @@
 PREF=/greg/fetches
 FN=${PREF}.$(date +"%Y%m%d")
 printf "$1 " >>$FN
-# Max of 5 retries ........
+# Max of 3 retries ........
 fails=$(cat ${PREF}.*|grep -c "$1 " )
-if [ $fails -gt 5 ] ; then           
+if [ $fails -ge 3 ] ; then           
         echo " SKIPPED">>$FN
         exit 0
 fi             
