@@ -63,6 +63,8 @@ function run_all {
 run_all 
 
 find /output -name "greg.log.*" -mtime +7 -exec rm -f {} \;
+find /output -name "greg_download.log.*" -mtime +7 -exec rm -f {} \;
+find /greg   -name "fetches.*" -mtime +14 -exec rm -f {} \;
 
 
 	
